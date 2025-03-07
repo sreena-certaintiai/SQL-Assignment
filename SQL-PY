@@ -160,6 +160,7 @@ def export_monthly_revenue():
     """
     export_to_file(query, "monthly_revenue_per_store")
 
+''' done seperately 
 def export_customer_spending():
     query = """
         SELECT c.customer_id, c.name, SUM(o.total_amount) AS total_spending
@@ -169,6 +170,7 @@ def export_customer_spending():
         ORDER BY total_spending DESC;
     """
     export_to_file(query, "customer_total_spending")
+'''
 
 def initialize_database():
     create_tables()
