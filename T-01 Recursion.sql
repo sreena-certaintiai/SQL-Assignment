@@ -289,7 +289,7 @@ INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
 (3, 4, 8, 200);
 
 -- ------------------------------------------------------------------------------------------------------------------
--- TASK 8
+-- TASK 8 PIVOT TABLE
 -- ------------------------------------------------------------------------------------------------------------------
 INSERT INTO orders (customer_id, store_id, order_date, total_amount) VALUES
 (1, 1, '2024-01-05', 500.00),
@@ -395,7 +395,7 @@ INSERT INTO orders (customer_id, store_id, order_date, total_amount) VALUES
 (19, 4, '2025-04-15', 720.00),
 (20, 5, '2025-04-20', 910.00);
 
-
+-- MANUAL PIVOT 
 SELECT store_id,
     SUM(CASE WHEN EXTRACT(MONTH FROM order_date) = 1 THEN total_amount ELSE 0 END) AS "Jan",
     SUM(CASE WHEN EXTRACT(MONTH FROM order_date) = 2 THEN total_amount ELSE 0 END) AS "Feb",
@@ -412,6 +412,19 @@ SELECT store_id,
 FROM orders
 GROUP BY store_id
 ORDER BY store_id;
+
+-- -- PIVOT EXPLICTLY FOR POSTGRESQL 
+-- -- crosstab()
+
+-- CREATE EXTENSION IF NOT EXISTS tablefunc; -- its not enabled by default
+-- -- select * from orders
+
+select * from crosstab(
+	'select store_id, TRIM(TO_CHAR(order_date, ''Month'')) AS month ,sum(total_amount) from orders 
+ 	 GROUP BY store_id, month
+ 	 ORDER BY store_id, month',
+	 'VALUES (''January''), (''February''), (''March''), (''April'')'	
+) as pivot_table (store_id int, january NUMERIC,febrauary NUMERIC, march NUMERIC,april NUMERIC);
 
 -- ------------------------------------------------------------------------------------------------------------------
 -- TASK 9
@@ -586,4 +599,4 @@ $$ LANGUAGE plpgsql;
     ORDER BY total_spending DESC
 ) TO 'D:/Certainti.Ai/customer_total_spending.csv' WITH CSV HEADER;
 
--- o/p successfully stored in the csv format in local path('D:/Certainti.Ai/customer_total_spending.csv')
+-- -- o/p successfully stored in the csv format in local path('D:/Certainti.Ai/customer_total_spending.csv')
