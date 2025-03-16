@@ -23,7 +23,7 @@ CREATE TABLE employees (
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL CHECK (email LIKE '%@%.%'), --mostly like doesnt support
+    email VARCHAR(255) UNIQUE NOT NULL CHECK (email LIKE '%@%.%'),
     phone VARCHAR(15) UNIQUE NOT NULL,
     city VARCHAR(100) NOT NULL
 );
@@ -253,7 +253,7 @@ select * from products
 -- TASK 5
 -- ------------------------------------------------------------------------------------------------------------------
 
-to-do csv ellame create panum so hold on and go to TASK 6
+-- done in python
 
 -- ------------------------------------------------------------------------------------------------------------------
 -- TASK 6
