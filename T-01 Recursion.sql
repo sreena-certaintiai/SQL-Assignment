@@ -23,7 +23,7 @@ CREATE TABLE employees (
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL CHECK (email LIKE '%@%.%'),
+    email VARCHAR(255) UNIQUE NOT NULL CHECK (email LIKE '%@%.%'), --mostly like doesnt support
     phone VARCHAR(15) UNIQUE NOT NULL,
     city VARCHAR(100) NOT NULL
 );
@@ -253,7 +253,7 @@ select * from products
 -- TASK 5
 -- ------------------------------------------------------------------------------------------------------------------
 
--- done in python
+to-do csv ellame create panum so hold on and go to TASK 6
 
 -- ------------------------------------------------------------------------------------------------------------------
 -- TASK 6
@@ -599,4 +599,9 @@ $$ LANGUAGE plpgsql;
     ORDER BY total_spending DESC
 ) TO 'D:/Certainti.Ai/customer_total_spending.csv' WITH CSV HEADER;
 
+\copy (
+	select * from employees
+) to 'D:/Certainti.Ai/customer_total_spending.csv' with csv header;
+
+-- done in cmd line
 -- -- o/p successfully stored in the csv format in local path('D:/Certainti.Ai/customer_total_spending.csv')
